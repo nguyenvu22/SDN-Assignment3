@@ -7,10 +7,14 @@
             UPDATE ACCOUNT</h1>
         <div style="margin-top: 100px;">
             <% if(error_msg !='' ){ %>
-                <%= error_msg %>
+                <div style="position: fixed; bottom: 0; right: 20px; z-index: 3;" class="alert alert-danger" role="alert">
+                    <%= error_msg %>
+                  </div>
                     <% } %>
                         <% if(success_msg !='' ){ %>
-                            <%= success_msg %>
+                            <div class="alert alert-success" style="position: fixed; bottom: 0; right: 20px; z-index: 3;" role="alert">
+                                <%= success_msg %>
+                              </div>
                                 <% } %>
         </div>
         <form method="post" class="container is-max-desktop" style="margin-top: 10px;">
@@ -35,7 +39,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input is-info" name="yob" required type="number" min="1945"
+                            <input class="input is-info" name="yob" required type="number" min="1945" max="2023"
                                 value="<%= user.YOB %>">
                         </div>
                     </div>

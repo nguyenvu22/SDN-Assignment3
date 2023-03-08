@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./patials/head.ejs') %>
-
-    <body style=" background-image: linear-gradient(180deg, rgb(223, 223, 245),  rgb(33, 35, 105));">
+<% if(success_msg != ''){ %>
+    <div style="position: fixed; bottom: 0; right: 20px; z-index: 3;" class="alert alert-success" role="alert">
+        <%= success_msg %>
+    </div>
+<% } %>
+    <body style="min-height: 100vh; background-image: url('https://t4.ftcdn.net/jpg/05/12/61/05/360_F_512610544_0excDel8sZTq4W0XLJTSehr9dZfOqi5R.jpg'); background-repeat: no-repeat; background-size: cover;">
         <!-- <%- include('./components/navbar') %> -->
-            <div class="page-container" style="margin-top: 30px;padding: 20px;">
-                <table id="example" class="table table-striped" style="max-width: 100;">
+            <div class="page-container text-white" style="margin: 50px 30px 0 30px; padding: 30px; background: rgba(245, 245, 245, 0.415); border-radius: 10px;">
+                <table id="example" class="table table-dark table-striped table-hover w-100">
                     <thead>
                         <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Carrer</th>
-                            <th>Postion</th>
-                            <th>Goals</th>
-                            <th>Nation</th>
-                            <th>isCaptain</th>
-                            <th></th>
+                            <th class="text-white">Image</th>
+                            <th class="text-white">Name</th>
+                            <th class="text-white">Carrer</th>
+                            <th class="text-white">Postion</th>
+                            <th class="text-white">Goals</th>
+                            <th class="text-white">Nation</th>
+                            <th class="text-white">Captain</th>
+                            <th class="text-white">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,10 +52,10 @@
                                 <td>
                                     <div class="buttons">
                                         <a href="./players/edit/<%=player.id %>"><button
-                                                class="btn btn-primary" style="margin: 10px;">Edit</button></a>
+                                                class="btn btn-primary" style="margin: 10px;"><i class="fa-solid fa-pen-to-square"></i></button></a>
                                         <a href="./players/delete/<%=player.id %>"><button
                                                 onclick="return confirm('Are you sure ???')"
-                                                class="btn btn-danger" style="margin: 10px;">Delete</button></a>
+                                                class="btn btn-danger" style="margin: 10px;"><i class="fa-solid fa-delete-left text-white"></i></a></button></a>
                                     </div></a>
                                 </td>
                             </tr>
@@ -62,70 +66,78 @@
             </div>
             <!-- Modal -->
             <!-- Large modal -->
-            <button style="position: absolute; bottom: 640px; right: 1380px; margin-top: 16px;" type="button" class="btn btn-primary"
+            <button style="position: absolute; top: 10.8%; left: 5%;" type="button" class="btn btn-primary"
                 id="modal-btn" data-toggle="modal" data-target="#nation-create-form">Create Player</button>
 
 
-            <div id="nation-create-form"  class="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            <div id="nation-create-form" class="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content p-5">
-                        <h3 class="mb-2" style=" color: blueviolet;">Create Player</h3>
+                        <h3 class="mb-3 text-center" style="color: blue;">Create a Player</h3>
                         <form method="post" action="/players" enctype="multipart/form-data">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Player name</label>
+                                <label for="name" class="form-label" style="font-weight: bold;">Name</label>
                                 <input type="text" class="form-control" id="name" required name="name"
-                                    aria-describedby="hint">
+                                    aria-describedby="hint" placeholder="Player name">
                                 <div id="hint" class="form-text">e.g. Messi</div>
                             </div>
+
                             <div class="mb-3">
-                                <label for="formFile" class="form-label">Image</label>
+                                <label for="formFile" class="form-label" style="font-weight: bold;">Image</label>
                                 <input class="form-control" type="file" id="formFile" name="file" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="career" class="form-label">Carrer</label>
-                                <select class="form-select form-select-lg mb-3" id="career" name="career">
-                                    <%for (let club of clubList){ %>
-                                        <option value="<%= club.name %>">
-                                            <%= club.name %>
-                                        </option>
-                                        <% } %>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="position" class="form-label">Position</label>
-                                <select class="form-select form-select-lg mb-3" id="position" name="position">
-                                    <%for (let position of positionList){ %>
-                                        <option value="<%= position.name %>">
-                                            <%= position.name %>
-                                        </option>
-                                        <% } %>
-                                </select>
+                            <div class="mb-3 d-flex justify-content-between">
+
+                                <div style="width: 40%;">
+                                    <label for="career" class="form-label" style="font-weight: bold;">Carrer</label>
+                                    <select class="form-select form-select-lg mb-3" id="career" name="career">
+                                        <%for (let club of clubList){ %>
+                                            <option value="<%= club.name %>">
+                                                <%= club.name %>
+                                            </option>
+                                            <% } %>
+                                    </select>
+                                </div>
+                                <div style="width: 40%;">
+                                    <label for="position" class="form-label" style="font-weight: bold;">Position</label>
+                                    <select class="form-select form-select-lg mb-3" id="position" name="position">
+                                        <%for (let position of positionList){ %>
+                                            <option value="<%= position.name %>">
+                                                <%= position.name %>
+                                            </option>
+                                            <% } %>
+                                    </select>
+                                </div>
+
                             </div>
 
-                            <div class="mb-3">
-                                <label for="goals" class="form-label">Goals</label>
-                                <input placeholder="number of goal" type="number" class="form-control" id="goals"
-                                    required name="goals">
+                            <div class="mb-3 d-flex justify-content-between">
+                                <div style="width: 40%;">
+                                    <label for="goals" class="form-label" style="font-weight: bold;">Goals</label>
+                                    <input placeholder="Score..." type="number" class="form-control" id="goals"
+                                        required name="goals">
+                                </div>
+
+                                <div style="width: 40%;">
+                                    <label for="nation" class="form-label" style="font-weight: bold;">Nation</label>
+                                    <select class="form-select form-select-lg mb-3" id="nation" name="nation">
+                                        <%for (let nation of nationsList){ %>
+                                            <option value="<%= nation._id %>">
+                                                <%= nation.name %>
+                                            </option>
+                                            <% } %>
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="nation" class="form-label">Nation</label>
-                                <select class="form-select form-select-lg mb-3" id="nation" name="nation">
-                                    <%for (let nation of nationsList){ %>
-                                        <option value="<%= nation._id %>">
-                                            <%= nation.name %>
-                                        </option>
-                                        <% } %>
-                                </select>
-                            </div>
-                            <div class="mb-3 mt-3">
+                            <div class="mb-5 d-flex align-items-center">
                                 <input type="checkbox" class="form-check-input" name="isCaptain" value="true"
                                     id="captain">
-                                <label class="form-check-label" for="captain">is Captain?</label>
+                                <label class="form-check-label ml-3" for="captain">Is he a Captain?</label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary px-3">Submit</button>
                         </form>
                     </div>
                 </div>

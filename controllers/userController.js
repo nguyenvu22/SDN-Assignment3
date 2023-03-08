@@ -20,7 +20,7 @@ class userController {
   }
 
   regist(req, res, next) {
-    const { username, password } = req.body;
+    const { username, password, name } = req.body;
     let errors = [];
     if (!username || !password) {
       errors.push({ msg: "Empty field is not allowed !" });
@@ -33,6 +33,7 @@ class userController {
         errors,
         username,
         password,
+        name
       });
     } else {
       //Check cuplicate
@@ -43,11 +44,13 @@ class userController {
             errors,
             username,
             password,
+            name
           });
         } else {
           const newUser = new User({
             username,
             password,
+            name
           });
           //Hash password
           bcrypt.hash(newUser.password, 10, function (err, hash) {

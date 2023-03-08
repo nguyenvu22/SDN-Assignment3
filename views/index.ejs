@@ -1,38 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include ('./patials/head') %>
-  <body style="background-image: url('https://t3.ftcdn.net/jpg/04/84/56/02/360_F_484560228_OFLEvMOwpDAJfvAHveEBdVnzu4w6gfCe.jpg');background-size: contain;">
-    <div style="margin-top:10px ; color: aqua;">
-      <% if(error_msg !='' ){ %>
-        <%= error_msg %>
-          <% } %>
+  <%- include ('./patials/head') %>
+  <body
+    style="
+      min-height: 100vh;
+      background-image: url('https://t3.ftcdn.net/jpg/04/84/56/02/360_F_484560228_OFLEvMOwpDAJfvAHveEBdVnzu4w6gfCe.jpg');
+      background-size: cover;
+    "
+  >
+    <!-- <div style="margin-top: 10px; color: aqua">
+      <% if(error_msg !='' ){ %> <%= error_msg %> <% } %>
+    </div> -->
+    <% if(error_msg !='' ){ %>
+    <div
+      style="width: 60%; position: fixed; top: 100px; left: 20%; z-index: 3;"
+      class="alert alert-warning"
+      role="alert"
+    >
+      <%= error_msg %>
     </div>
-    
-  
-    <div class="columns is-multiline" style="margin-top: 80px; margin-left: 20px; margin-right: 20px;">
+    <% } %>
+
+    <div
+      class="columns is-multiline"
+      style="margin-top: 40px; margin-left: 20px; margin-right: 20px"
+    >
       <% players.forEach(function(player) { %>
-        <div class="column is-one-quarter">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-3by5">
-
-                <img src="<%= player.image %>" alt="Placeholder image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="content">
-                Name: <%= player.name %>
+      <div class="column is-one-third">
+        <div class="card mx-3">
+          <div
+            class="card-image"
+            style="padding: 20px; border-bottom: 1px solid rgba(0, 0, 0, 0.3)"
+          >
+            <figure class="image">
+              <img
+                style="width: 100%; height: 60vh"
+                src="<%= player.image %>"
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="d-flex">
+              <div class="content w-50 text-center" style="font-weight: bold">
+                <i class="far fa-user mr-3"></i>
+                <%= player.name %>
               </div>
-              <div class="content">
-                Nation: <%= player.nation.name %>
+              <div class="content w-50 text-center" style="font-weight: bold">
+                <i class="fas fa-globe mr-3"></i><%= player.nation.name %>
               </div>
-              <a href="/players/<%=player.id%>" class="btn btn-info">Detail</a>
             </div>
-
+            <div class="text-center">
+              <a
+                href="/players/<%=player.id%>"
+                class="btn btn-outline-info px-3 font-weight-bold"
+                >Detail <i class="fa-solid fa-arrow-right ml-2"></i
+              ></a>
+            </div>
           </div>
         </div>
-        <% }) %>
+      </div>
+      <% }) %>
     </div>
   </body>
-
 </html>

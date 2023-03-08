@@ -2,19 +2,24 @@
 <html lang="en">
     <%- include('./patials/head.ejs') %>
 
-    <body style=" background-image: linear-gradient(180deg, rgb(223, 223, 245), rgb(33, 35, 105));">
+    <body style="min-height: 100vh; background-image: url('https://images7.alphacoders.com/601/601604.jpg'); background-repeat: no-repeat; background-size: cover;">
         <% if(error_msg !='' ){ %>
-            <h1 class="text-danger">
+            <div style="position: fixed; bottom: 0; right: 20px; z-index: 3;" class="alert alert-danger" role="alert">
                 <%= error_msg %>
-            </h1>
-            <% } %>
-                    <div class="page-container" style="margin-top: 30px;padding: 20px;">
-                        <table id="example" class="table table-striped" style="width:100%">
+            </div>
+        <% } %>
+        <% if(success_msg !='' ){ %>
+            <div style="position: fixed; bottom: 0; right: 20px; z-index: 3;" class="alert alert-success" role="alert">
+                <%= success_msg %>
+            </div>
+        <% } %>
+                    <div class="page-container text-white" style="margin: 50px 30px 0 30px; padding: 30px; background: rgba(245, 245, 245, 0.415); border-radius: 10px;">
+                        <table id="example" class="table table-dark table-striped table-hover w-100">
                             <thead>
                                 <tr>
-                                    <th>Nations</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
+                                    <th class="text-white">Nations</th>
+                                    <th class="text-white">Description</th>
+                                    <th class="text-white">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -29,10 +34,10 @@
                                         <td>
                                             <div class="buttons are-small">
                                                 <a href="./nations/edit/<%=nation.id %>"><button
-                                                        class="btn btn-primary" style="margin: 3px;">Edit</button></a>
+                                                        class="btn btn-primary" style="margin: 3px;"><i class="fa-solid fa-pen-to-square"></i></button></a>
                                                 <a href="./nations/delete/<%=nation.id %>"><button
                                                         onclick="return confirm('Are you sure ???')"
-                                                        class="btn btn-danger"style="margin: 3px;">Delete</button></a>
+                                                        class="btn btn-danger"style="margin: 3px;"><i class="fa-solid fa-delete-left text-white"></i></button></a>
                                             </div></a>
                                         </td>
                                     </tr>
@@ -43,27 +48,27 @@
                     </div>
                     <!-- Modal -->
                     <!-- Large modal -->
-                    <button style="position: absolute; bottom: 590px; right: 1200px;" type="button" class="btn btn-primary"
+                    <button style="position: absolute; top: 10.8%; left: 5%;" type="button" class="btn btn-dark"
                         id="modal-btn" data-toggle="modal" data-target="#nation-create-form">Create Nation</button>
 
                     <div id="nation-create-form" class="modal" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content p-5">
-                                <h3 class="mb-2"  style=" color: blueviolet;">Create nation</h3>
+                                <h3 class="mb-3 text-center" style=" color: blue;">Create nation</h3>
                                 <form method="post" action="/nations">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nation</label>
-                                        <input type="text" class="form-control" id="name" required name="name"
+                                        <input type="text" class="form-control" id="name" required name="name" placeholder="Nation's name ..."
                                             aria-describedby="hint">
                                         <div id="hint" class="form-text">e.g. Brazil</div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <input type="text" class="form-control" required name="description"
+                                        <input type="text" class="form-control" required name="description" placeholder="Quote..."
                                             id="description">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
                                 </form>
 
                             </div>

@@ -12,24 +12,21 @@ let clubData = [
   { id: "8", name: "Barcelona" },
 ];
 let postitionData = [
-  { id: "1", name: "GK" },
-  { id: "2", name: "CB" },
-  { id: "3", name: "LB" },
-  { id: "4", name: "RB" },
-  { id: "5", name: "SW" },
-  { id: "6", name: "CM" },
-  { id: "7", name: "LM" },
-  { id: "8", name: "RM" },
-  { id: "9", name: "ST" },
-  { id: "10", name: "LW" },
-  { id: "11", name: "RW" },
+  { id: "1", name: "Goalkeeper (GK)" },
+  { id: "2", name: "Center Back (CB)" },
+  { id: "3", name: "Full Back (FB)" },
+  { id: "4", name: "Defensive Midfielder (DM)" },
+  { id: "5", name: "Central Midfielder (CM)" },
+  { id: "6", name: "Attacking Midfielder (AM)" },
+  { id: "7", name: "Winger (LW/RW)" },
+  { id: "8", name: "Forward (CF/ST)" },
 ];
 class PlayerController {
   home(req, res, next) {
     console.log(req.session);
     Nations.find({})
       .then((nations) => {
-        Players.find({ isCaptain: true })
+        Players.find({})
           .populate("nation", ["name", "description"])
           .then((players) => {
             res.render("index", {
@@ -111,6 +108,7 @@ class PlayerController {
         res.redirect("/players");
       } else {
         console.log(player);
+        req.flash("success_msg", "Create a Player successfully");
         player
           .save()
           .then(() => res.redirect("/players"))
@@ -181,6 +179,7 @@ class PlayerController {
     }
     Players.updateOne({ _id: req.params.playerId }, data)
       .then(() => {
+        req.flash("success_msg", "Info changed");
         res.redirect("/players");
       })
       .catch((err) => {

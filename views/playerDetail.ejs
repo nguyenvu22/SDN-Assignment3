@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include ('./patials/head') %>
-    <body style="background-image: url('https://t3.ftcdn.net/jpg/04/84/56/02/360_F_484560228_OFLEvMOwpDAJfvAHveEBdVnzu4w6gfCe.jpg');background-size: cover;">
-        <div class="columns is-multiline is-mobile" style="margin-top: 20px; margin-left: 20px; margin-right: 20px;">         
-            <div class="column is-two-fifths" >
-            <figure class="image is-2by3">
-                <img src="<%= player.image %>">
-              </figure>
+  <%- include ('./patials/head') %>
+  <body
+    style="
+      height: 100vh;
+      background-image: url('https://t4.ftcdn.net/jpg/05/12/61/05/360_F_512610544_0excDel8sZTq4W0XLJTSehr9dZfOqi5R.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    "
+  >
+    <div
+      class="columns is-multiline is-mobile"
+      style="margin-top: 20px; margin-left: 20px; margin-right: 20px"
+    >
+      <div class="column is-two-fifths">
+        <figure class="image">
+          <img
+            style="height: 80vh; border-radius: 10px"
+            src="<%= player.image %>"
+          />
+        </figure>
+      </div>
+      <div class="column">
+        <div class="card p-5 justify-content-center" style="height: 80vh">
+          <h3 class="text-center mb-5" style="font-size: 40px">Information</h3>
+          <div class="card-content" style="font-size: 25px">
+            <div class="d-flex">
+              <div class="content w-50">
+                <i class="fas fa-running mr-3"></i> <%= player.name %>
+              </div>
+              <div class="content">
+                <i class="fas fa-globe mr-3"></i> <%= player.nation.name %>
+              </div>
             </div>
-            <div class="column ">
-                <div class="box" style="width: 10vw; text-align: center; font-weight: 500; background-color: blueviolet; color: #fff;">
-                    Information
-                  </div>
-                <div class="card">
-                    <div class="card-content">                
-                      <div class="content">
-                        Name: <%= player.name %>                                                                
-                      </div>
-                      <div class="content">
-                        Career: <%= player.career %>                                                                
-                      </div>
-                      <div class="content">
-                        Position: <%= player.position %>                                                                
-                      </div>
-                      <div class="content">
-                        Goals: <%= player.goals %>                                                                
-                      </div>
-                      <div class="content">
-                        Nation: <%= player.nation.name %>                                                                
-                      </div>
-                      <div class="content">
-                        Captain: <%=player.isCaptain===true ? 'Yes' : 'No' %>                                                                
-                      </div>
-                    </div>
-                  </div>
+
+            <div class="content">
+              <span style="font-weight: bold">Position:</span> <%=
+              player.position %>
             </div>
-  
-          </div>                                
-                             
-    </body>
-
-
+            <div class="content">
+              <i class="fas fa-futbol mr-3"></i> <%= player.career %>
+            </div>
+            <div class="content">
+              <i class="fas fa-trophy mr-3"></i><%= player.goals %>
+            </div>
+            <div class="content">
+              <i class="fas fa-crown mr-3"></i> 
+              <%=player.isCaptain===true ?
+              'Captain' : 'Not a Captain' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

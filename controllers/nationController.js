@@ -16,9 +16,10 @@ class NationController {
     const nation = new Nations(req.body);
     Nations.find({ name: nation.name }).then((nationCheck) => {
       if (nationCheck.length > 0) {
-        req.flash("error_msg", "Duplicate nation name!");
+        req.flash("error_msg", "Duplicated! Nation name has already existed");
         res.redirect("/nations");
       } else {
+        req.flash("success_msg", "Create a Nation successfully.");
         nation
           .save()
           .then(() => res.redirect("/nations"))
@@ -41,11 +42,12 @@ class NationController {
   edit(req, res, next) {
     Nations.updateOne({ _id: req.params.nationId }, req.body)
       .then(() => {
+        req.flash("success_msg", "Info changed.");
         return res.redirect("/nations");
       })
       .catch((err) => {
         console.log("error update: ", err);
-        req.flash("error_msg", "Duplicate nation name!");
+        req.flash("error_msg", "Duplicated! Nation name has already existed");
         res.redirect(`/nations/edit/${req.params.nationId}`);
       });
   }
@@ -56,7 +58,7 @@ class NationController {
         if (data.length > 0) {
           req.flash(
             "error_msg",
-            `You can not delete this nation because it has already been connected with other players`
+            `Can not delete since some players belong to this country!`
           );
           return res.redirect("/nations");
         } else {

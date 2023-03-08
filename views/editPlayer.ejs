@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include ('./patials/head') %>
-<body style=" background-image: linear-gradient(180deg, rgb(233, 233, 244),  rgb(33, 35, 105));">
-    <h1 style="text-align: center; margin-top: 100px; font-size: 40px; font-weight: 500; margin-bottom: 20px;">UPDATE PLAYER</h1>
+<body style="height: 100vh; background-image: url('https://t4.ftcdn.net/jpg/05/12/61/05/360_F_512610544_0excDel8sZTq4W0XLJTSehr9dZfOqi5R.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <h1 style="color: white; text-align: center; margin-top: 50px; font-size: 40px; font-weight: 500; margin-bottom: 20px;">UPDATE PLAYER</h1>
     <% if(error_msg != ''){ %>
-        <%= error_msg %>
+        <div style="position: fixed; bottom: 0; right: 20px; z-index: 3;" class="alert alert-danger" role="alert">
+            <%= error_msg %>
+          </div>
     <% } %>
-    <form method="post" class="container is-max-desktop" style="margin-top: 10px; background-color: rgb(252, 251, 250); padding: 10px;" enctype="multipart/form-data">
+    <form method="post" class="container is-max-desktop" style="margin-top: 30px; background: rgba(245, 245, 245, 0.415); padding: 40px; border-radius: 10px;" enctype="multipart/form-data">
         <div class="field is-horizontal">
             <div class="field-label is-normal">
                 <label class="label">Name</label>
@@ -29,11 +31,13 @@
             </div>
             <div class="field-body">
                 <div class="field">
-                    <div class="control">
-                        <div><figure class="image is-128x128">
-                            <img  src="<%=player.image%>">
-                          </figure></div>
-                        <div class="file has-name is-boxed">
+                    <div class="control d-flex">
+                        <div class="rounded">
+                            <figure class="image is-128x128">
+                            <img class="rounded" src="<%=player.image%>">
+                          </figure>
+                        </div>
+                        <div class="file has-name is-boxed ml-5">
                             <label class="file-label">
                                 <input class="file-input" type="file" name="file">
                                 <span class="file-cta" >
@@ -54,9 +58,12 @@
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label">Career</label>
+
+        <div class="d-flex justify-content-between" style="margin: 20px 12.5%;">
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Career</label>
             </div>
             <div class="field-body">
                 <div class="field is-narrow">
@@ -75,7 +82,7 @@
                 </div>
             </div>
         </div>
-    
+        
         <div class="field is-horizontal">
             <div class="field-label is-normal">
                 <label class="label">Position</label>
@@ -97,6 +104,7 @@
                 </div>
             </div>
         </div>
+
         <div class="field is-horizontal">
             <div class="field-label is-normal">
                 <label class="label">Goals</label>
@@ -109,7 +117,12 @@
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal">
+
+    </div>
+
+    <div class="d-flex" style="margin: 20px 12.5%;">
+
+        <div class="field is-horizontal d-flex align-items-center" style="width: 20%;">
             <div class="field-label is-normal">
                 <label class="label">Nation</label>
             </div>
@@ -129,7 +142,7 @@
                 </div>
             </div>
         </div>
-        <div class="field is-horizontal" style="display: flex; justify-content: center; align-items: center;">
+        <div class="field is-horizontal" style="display: flex; justify-content: center; align-items: center; margin-left: 50px;">
             <div class="field-label is-normal">
               <label class="label" style="padding-bottom: 10px;">isCaptain</label>
             </div>
@@ -137,17 +150,19 @@
               <div class="field">
                 <div class="control">
                   <label class="checkbox">
-                    <input type="checkbox" name="isCaptain" value="true" <%= player.isCaptain ? 'checked' : '' %>>
+                      <input type="checkbox" name="isCaptain" value="true" <%= player.isCaptain ? 'checked' : '' %>>
                     Yes, I am a captain
                   </label>
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
+    </div>
+</div>
+
         <div class="field is-horizontal">
             <div class="field-body">
                 <div class="field">
-                    <div class="control">
+                    <div class="control text-center">
                         <button class="button is-primary" style="margin-left: 180px;" type="submit" >
                             Save
                         </button>
