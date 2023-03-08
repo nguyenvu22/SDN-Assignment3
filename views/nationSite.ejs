@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./patials/head.ejs') %>
+
+    <body style=" background-image: linear-gradient(180deg, rgb(223, 223, 245), rgb(33, 35, 105));">
+        <% if(error_msg !='' ){ %>
+            <h1 class="text-danger">
+                <%= error_msg %>
+            </h1>
+            <% } %>
+                    <div class="page-container" style="margin-top: 30px;padding: 20px;">
+                        <table id="example" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nations</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% nations.forEach(function(nation) { %>
+                                    <tr>
+                                        <td>
+                                            <%= nation.name %>
+                                        </td>
+                                        <td>
+                                            <%= nation.description %>
+                                        </td>
+                                        <td>
+                                            <div class="buttons are-small">
+                                                <a href="./nations/edit/<%=nation.id %>"><button
+                                                        class="btn btn-primary" style="margin: 3px;">Edit</button></a>
+                                                <a href="./nations/delete/<%=nation.id %>"><button
+                                                        onclick="return confirm('Are you sure ???')"
+                                                        class="btn btn-danger"style="margin: 3px;">Delete</button></a>
+                                            </div></a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                           
+                        </table>
+                    </div>
+                    <!-- Modal -->
+                    <!-- Large modal -->
+                    <button style="position: absolute; bottom: 590px; right: 1200px;" type="button" class="btn btn-primary"
+                        id="modal-btn" data-toggle="modal" data-target="#nation-create-form">Create Nation</button>
+
+                    <div id="nation-create-form" class="modal" tabindex="-1" role="dialog"
+                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content p-5">
+                                <h3 class="mb-2"  style=" color: blueviolet;">Create nation</h3>
+                                <form method="post" action="/nations">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Nation</label>
+                                        <input type="text" class="form-control" id="name" required name="name"
+                                            aria-describedby="hint">
+                                        <div id="hint" class="form-text">e.g. Brazil</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <input type="text" class="form-control" required name="description"
+                                            id="description">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <%- include('./components/bootstrap-cdn') %>
+                        <script>
+                            $(document).ready(function () {
+                                $('#example').DataTable();
+                            });
+                            $(document).on('click', '#modal-btn', () => {
+                                $("#nation-create-form").modal('toggle')
+                            })
+                        </script>
+
+
+    </body>
+
+</html>

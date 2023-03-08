@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./patials/head.ejs') %>
+
+    <body style=" background-image: linear-gradient(180deg, rgb(223, 223, 245),  rgb(33, 35, 105));">
+        <!-- <%- include('./components/navbar') %> -->
+            <div class="page-container" style="margin-top: 30px;padding: 20px;">
+                <table id="example" class="table table-striped" style="max-width: 100;">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Carrer</th>
+                            <th>Postion</th>
+                            <th>Goals</th>
+                            <th>Nation</th>
+                            <th>isCaptain</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% players.forEach(function(player) { %>
+                            <tr style=" max-height: 60px;">
+                                <td
+                                    style="display: flex; align-items: center; justify-content: center; padding-top: 20px;">
+                                    <figure class="image">
+                                        <img style="width: 64px; height: 64px;" src=<%=player.image %> >
+                                    </figure>
+                                </td>
+                                <td>
+                                    <%= player.name %>
+                                </td>
+                                <td>
+                                    <%= player.career %>
+                                </td>
+                                <td>
+                                    <%= player.position %>
+                                </td>
+                                <td>
+                                    <%= player.goals %>
+                                </td>
+                                <td>
+                                    <%= player.nation.name %>
+                                </td>
+                                <td>
+                                    <%=player.isCaptain===true ? 'Captain' : 'Nope' %>
+                                </td>
+                                <td>
+                                    <div class="buttons">
+                                        <a href="./players/edit/<%=player.id %>"><button
+                                                class="btn btn-primary" style="margin: 10px;">Edit</button></a>
+                                        <a href="./players/delete/<%=player.id %>"><button
+                                                onclick="return confirm('Are you sure ???')"
+                                                class="btn btn-danger" style="margin: 10px;">Delete</button></a>
+                                    </div></a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                
+                </table>
+            </div>
+            <!-- Modal -->
+            <!-- Large modal -->
+            <button style="position: absolute; bottom: 640px; right: 1380px; margin-top: 16px;" type="button" class="btn btn-primary"
+                id="modal-btn" data-toggle="modal" data-target="#nation-create-form">Create Player</button>
+
+
+            <div id="nation-create-form"  class="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content p-5">
+                        <h3 class="mb-2" style=" color: blueviolet;">Create Player</h3>
+                        <form method="post" action="/players" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Player name</label>
+                                <input type="text" class="form-control" id="name" required name="name"
+                                    aria-describedby="hint">
+                                <div id="hint" class="form-text">e.g. Messi</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Image</label>
+                                <input class="form-control" type="file" id="formFile" name="file" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="career" class="form-label">Carrer</label>
+                                <select class="form-select form-select-lg mb-3" id="career" name="career">
+                                    <%for (let club of clubList){ %>
+                                        <option value="<%= club.name %>">
+                                            <%= club.name %>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="position" class="form-label">Position</label>
+                                <select class="form-select form-select-lg mb-3" id="position" name="position">
+                                    <%for (let position of positionList){ %>
+                                        <option value="<%= position.name %>">
+                                            <%= position.name %>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="goals" class="form-label">Goals</label>
+                                <input placeholder="number of goal" type="number" class="form-control" id="goals"
+                                    required name="goals">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nation" class="form-label">Nation</label>
+                                <select class="form-select form-select-lg mb-3" id="nation" name="nation">
+                                    <%for (let nation of nationsList){ %>
+                                        <option value="<%= nation._id %>">
+                                            <%= nation.name %>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <input type="checkbox" class="form-check-input" name="isCaptain" value="true"
+                                    id="captain">
+                                <label class="form-check-label" for="captain">is Captain?</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('#example').DataTable();
+                });
+                $(document).on('click', '#modal-btn', () => {
+                    $("#nation-create-form").modal('toggle')
+                })
+            </script>
+
+
+            <%- include('./components/bootstrap-cdn') %>
+    </body>
+
+</html>
